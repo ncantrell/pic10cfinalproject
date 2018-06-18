@@ -20,9 +20,41 @@ struct Polynomial{
     Polynomial(vector<double> f, double x_in){ coeff = f; x = x_in;}
     void set_x(double x_in){x = x_in;}
 };
+struct Point2d{
+    double x;
+    double y;
+    Point2d(){x=NULL; y=NULL;}
+    Point2d(double x_in, double y_in){ x = x_in; y = y_in;}
+};
 
 int main( int argc, char** argv )
 {
+        auto create_datapoints = [&](){
+            int num_p;
+            vector<Point2d> datapoints;
+            cout << "Please enter the number of points: ";
+            cin >> num_p;
+            for(int i=0; i<num_p; i++){ //create a uniform random double within the interval [a,b]
+                double tmpx, tmpy;
+                string str,tok;
+                cout << "Please enter (point " + to_string(i) + ") as \"x,y\": ";
+                std::cin >> str;
+                std::stringstream ss(str);
+                while( ss.good() )
+                {
+                    string substr;
+                    std::getline(ss, substr, ',');
+                    ss >> tmpy;
+                    std::getline(ss, substr);
+                    std::stringstream ss2(substr);
+                    ss2 >> tmpx;
+                }
+                Point2d tmp(tmpx, tmpy);
+                datapoints.push_back(tmp);
+            }
+            return static_cast<vector<Point2d>>(datapoints);
+        };
+
         auto create_poly = [](){
                 vector<double> coeff;
                 double x = 0;
@@ -63,6 +95,25 @@ int main( int argc, char** argv )
     //{
     	Mat plot(cv::Size(COLS, ROWS), CV_8UC1);
     	plot = 255;
+        auto lagrange_poly = [](vector<Point2d> &datapoints, double x){
+            double ret = 0;
+            for(int k=0; k<datapoints.size(); k++){
+                double L_k=datapoints[k].y;
+                for(int i=0; i<datapoints.size(); i++){
+                    if(i!=k){ L_k *= (x-datapoints[i].x)/(datapoints[k].x - datapoints[i].x); } //if statement to avoid divide by zero
+                }
+                ret += L_k;
+            }
+            return static_cast<double>(ret);
+        };
+        auto data = create_datapoints();
+        for(int i=0; i<data.size(); i++){
+            cout << "(point " + to_string(i) + ") x: " + to_string(data[i].x) + " y:" + to_string(data[i].y) << endl;
+        }
+        double lx = 0;
+        cout << "Please enter the value of x where you want the value of the Lagrange Interpolating Polynomial formed with these points: ";
+        cin >> lx;
+        cout << "The value of the Lagrange Polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
     	for(int i=0;i<plot.cols;i++)
         {
             for (int j=plot.rows;j>=0;j--)
