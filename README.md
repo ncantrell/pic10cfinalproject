@@ -3,7 +3,7 @@ Graphing calculator and polynomial interpolation
 
 ----
 ### Key Features
-
+ 
 ----
 ### Quick Start
 
