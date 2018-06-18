@@ -5,7 +5,7 @@
 #define COLS 512
 #define PI 3.14159265
 #define TOL 1.0
-
+ 
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include <iostream>
