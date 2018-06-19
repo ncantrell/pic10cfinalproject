@@ -34,5 +34,11 @@ I was eventually able to recover from the Bootloop using a tip from askubuntu (s
 
 The problem that was much more difficult to overcome was recovering from the lost time of that 10 hour flight. I had planned to utilize that time productively to get caught up on putting the finishing touches on this project, but had to sleep for most of the flight instead.
 
+I think one of the most frustrating lessons to take away from these problems is that my time management skills and tendency to procrastinate have not improved nearly as much as I thought they had. :/ Development environment is always frustrating to setup and deal with, but I think getting more familiar with Docker could help me here.
+
+One of the aspects of working on this project that I really enjoyed was getting familiar with Lambda functions in C++.
+
 ## Future Work
 I would like to replace the CLI for entering equations with a GUI, and solve some of the weird aliasing problems using alternative distance metrics than the static "tolerance" I #define'ed. Would also like to add Neville's method and a symbolic solver that not only can solve for y values for a given x, but can also output the equation for the function that interpolates between those points.
+
+Another feature that I really want to integrate is C++ 11 multithreading to improve the rendering speed.
