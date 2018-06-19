@@ -2,12 +2,15 @@
 Graphing calculator and polynomial interpolation
 
 ----
+
 ## Quick Start
-### Step 1) Install Requirements
+#### Step 1) Install Requirements (OpenCV*)
 https://docs.opencv.org/trunk/d7/d9f/tutorial_linux_install.html (Linux Development)
 https://docs.opencv.org/3.4/d3/d52/tutorial_windows_install.html (Windows Development)
+#### Step 2) Configure IDE to link the OpenCV shared libraries
+#### Step 3) Compile main.cpp
 
-### Motivation behind using OpenCV
+#### *Motivation behind using OpenCV
 This project used the OpenCV library for rendering the graphs. Initially, my hope had been to render via ASCII drawings, but I wasn't satisified with the resulting image quality (primarily due to my terminal using a non-monospaced font).
 
 ----
