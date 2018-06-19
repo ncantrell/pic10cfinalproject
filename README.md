@@ -55,6 +55,43 @@ Would also like to add Neville's method and a symbolic solver that not only can 
 
 Another feature that I really want to integrate is C++ 11 multithreading to improve the rendering speed.
 
+### Topic Application Summary
+
+## Usage of Topics covered in class: 
+
+(yes) Generic algorithms, lambda functions, binders and adapters 
+->wanted to practice using lambda functions, so almost every function in this project is a lambda function
+
+(no) Move semantics
+->The only large copy operations were being handled by opencv, so it didn't feel prudent to spend time on this0
+
+(yes) Iterators (The advantages of passing a range [first,last) over passing a container.)
+->I used several vector iterators in this project
+
+(no) Smart pointers
+->I didn't see any applications for pointers when working on this project. 
+
+(no) RAII idiom 
+->I didn't create a copy constructor, copy assignment operator, or destructor so, by the Rule of 3-4.5, this project didn't seem to require RAII...
+(OTOH, I believe that OpenCV has a lot of RAII going on under the hood)
+
+(no)Qt 
+->I would like to add a GUI to replace the CLI, but my access to a computer that can run Qt Creator has been limited since the end of the quarter. Although, if I had finished non-GUI coding earlier in the quarter, I could have used the PIC lab to do this.
+
+(no) Templates/Template functions/Classes 
+->There was not much code in this project replicating logic with different data types. For this reason, I didn't see a ton of benefit to writing any of the code to make use of template functionality.
+
+(no) Inheritance and polymorphism 
+->I wanted to use this project to practice functional programming, so I used Lambda functions and struct data types instead of custom classes\
+
+(no) Function pointers 
+->for this project, Lambda functions seemed like a better tool.
+
+(yes) C++ STL containers 
+->I used several vectors in this project
+
+(yes) git version control
+
 ----
 ## Key Features
 ### Periodic Function Graphing
