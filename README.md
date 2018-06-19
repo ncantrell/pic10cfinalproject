@@ -3,7 +3,7 @@ Graphing calculator and polynomial interpolation
 
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/menu1.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/menu2.png)
-![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial3.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial2.png)
 
 (This project demonstrates the application of some of the topics learned in my PIC10C and MATH 151A classes during Spring Quarter of 2018.)
 
