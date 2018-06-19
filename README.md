@@ -3,7 +3,12 @@ Graphing calculator and polynomial interpolation
 
 ----
 ### Key Features
-
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic1.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic2.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic5.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic6.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic3.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic4.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial1.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial2.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial3.png)
