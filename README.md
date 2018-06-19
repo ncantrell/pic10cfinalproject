@@ -65,8 +65,8 @@ Another feature that I really want to integrate is C++ 11 multithreading to impr
 (no) Move semantics
 ->The only large copy operations were being handled by opencv, so it didn't feel prudent to spend time on this0
 
-(yes) Iterators (The advantages of passing a range [first,last) over passing a container.)
-->I used several vector iterators in this project
+(no) Iterators (The advantages of passing a range [first,last) over passing a container.)
+->I reviewed my code looking for opportunities to use Iterators instead of indexes, but every use of vectors also made of the index. For this reason, Iterators didn't seem attractive to me.
 
 (no) Smart pointers
 ->I didn't see any applications for pointers when working on this project. 
