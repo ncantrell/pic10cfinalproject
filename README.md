@@ -1,10 +1,12 @@
 # Final Project pic10c Spring 2018  
 Graphing calculator and polynomial interpolation
 
+This project demonstrates the application of some of the topics learned in my PIC10C and MATH 151A classes during Spring Quarter '18.
+
 ----
 
 ## Quick Start
-#### Step 1) Install Requirements (OpenCV*)
+#### Step 1) Install Requirements (ie. "OpenCV")*
 https://docs.opencv.org/trunk/d7/d9f/tutorial_linux_install.html (Linux Development)
 https://docs.opencv.org/3.4/d3/d52/tutorial_windows_install.html (Windows Development)
 #### Step 2) Configure IDE to link the OpenCV shared libraries
