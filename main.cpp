@@ -23,9 +23,6 @@ struct Polynomial{
     void set_x(double x_in){x = x_in;}
 };
 struct Periodic{
-    //int row, int col, double freq, int amplitude, int phase
-    //(amplitude*sin((col+(50)+phase)*PI/freq)))
-    //if(is_sin(j-255,i,100,10,0)){plot.at<uchar>(j,i) = 0;} //white
     double x;
     double freq;
     int amplitude;
@@ -38,6 +35,23 @@ struct Periodic{
 
 int main( int argc, char** argv )
 {
+        string menu = "";
+        int selection = 0;
+        cout << "Nicholas Cantrell's PIC10C Final Project" << endl;
+        cout << "Press any key (followed by \'enter\') to continue..." << endl;
+        cin >> menu;
+        system("pause");
+        system("clear");
+        cout << "Main Menu:" << endl;
+        cout << "-------------------------------------------------------------------------------" << endl;
+        cout << "To graph a periodic function, press \'1\'" << endl;
+        cout << "To graph a polynomial function, press \'2\'" << endl;
+        cout << "To manually enter a set of points for polynomial interpolation, press \'3\'" << endl;
+        cout << "To generate a set of points for polynomial interpolation, press \'4\'" << endl;
+        cin >> selection;
+        system("clear");
+
+
         struct Point2d{
             double x;
             double y;
@@ -45,31 +59,18 @@ int main( int argc, char** argv )
             Point2d(double x_in, double y_in){ x = x_in; y = y_in;}
         };
 
-        auto create_datapoints = [](){
-            vector<Point2d> datapoints;
-            int num_p;
-            cout << "Please enter the number of points: ";
-            cin >> num_p;
-            for(int i=0; i<num_p; i++){ //create a uniform random double within the interval [a,b]
-                double tmpx, tmpy;
-                string str,tok;
-                cout << "Please enter (point " + to_string(i) + ") as \"x,y\": ";
-                std::cin >> str;
-                std::stringstream ss(str);
-                while( ss.good() )
-                {
-                    string substr;
-                    std::getline(ss, substr, ',');
-                    ss >> tmpy;
-                    std::getline(ss, substr);
-                    std::stringstream ss2(substr);
-                    ss2 >> tmpx;
+        auto lagrange_poly = [](vector<Point2d> &datapoints, double x){
+            double ret = 0;
+            for(int k=0; k<datapoints.size(); k++){
+                double L_k=datapoints[k].y;
+                for(int i=0; i<datapoints.size(); i++){
+                    if(i!=k){ L_k *= (x-datapoints[i].x)/(datapoints[k].x - datapoints[i].x); } //if statement to avoid divide by zero
                 }
-                Point2d tmp(tmpx, tmpy);
-                datapoints.push_back(tmp);
+                ret += L_k;
             }
-            return static_cast<vector<Point2d>>(datapoints);
+            return static_cast<double>(ret);
         };
+
         auto poly = [](vector<double> f, double x){
                 double ret = 0;
                 for(int i=0; i<=f.size(); i++){
@@ -95,8 +96,8 @@ int main( int argc, char** argv )
                 //cin >> x;
                 return static_cast<Polynomial>(Polynomial(coeff,x));
             };
-            auto create_periodic = [](){
-                int type = 0;
+        auto create_periodic = [](){
+                int type = 1;
                 bool sin = false;
                 bool cos = false;
                 bool tan = false;
@@ -108,9 +109,6 @@ int main( int argc, char** argv )
                     if(type == 3) tan = true;
                     if(!sin && !cos && !tan) cout << "Please make a valid selection" << endl;
                 }
-                //int row, int col, double freq, int amplitude, int phase
-                //vector<double> coeff;
-                //Periodic(int t, type double f, int a, int p, double x_in){ type = t; freq = f; amplitude = a; phase = p; x = x_in;}
                 double x = 0;
                 double freq = 100;
                 int amplitude = 10;
@@ -123,12 +121,36 @@ int main( int argc, char** argv )
                     cin >> amplitude;
                     cout << "Please enter the phase of the function (in radians): ";
                     cin >> phase;
-                    cout << "Please enter the value of x: ";
+                    //cout << "Please enter the value of x: ";
                     x = 0;
                 }
                 return static_cast<Periodic>(Periodic(type, freq, amplitude, phase, x));
             };
-
+        auto create_datapoints = [](){
+            vector<Point2d> datapoints;
+            int num_p;
+            cout << "Please enter the number of points: ";
+            cin >> num_p;
+            for(int i=0; i<num_p; i++){ //create a uniform random double within the interval [a,b]
+                double tmpx, tmpy;
+                string str,tok;
+                cout << "Please enter (point " + to_string(i) + ") as \"x,y\": ";
+                std::cin >> str;
+                std::stringstream ss(str);
+                while( ss.good() )
+                {
+                    string substr;
+                    std::getline(ss, substr, ',');
+                    ss >> tmpy;
+                    std::getline(ss, substr);
+                    std::stringstream ss2(substr);
+                    ss2 >> tmpx;
+                }
+                Point2d tmp(tmpx, tmpy);
+                datapoints.push_back(tmp);
+            }
+            return static_cast<vector<Point2d>>(datapoints);
+        };
         auto create_random_datapoints = [&](){
             int num_p;
             double a;
@@ -149,7 +171,6 @@ int main( int argc, char** argv )
                 }
             return static_cast<vector<Point2d>>(datapoints);
         };
-        //auto f_1 = create_poly();
         auto is_poly = [&](int row, int col, double amplitude, double x_scale, Polynomial poly_in){
             poly_in.set_x(col/1);
             return (((row-2*TOL)<(-1*amplitude*poly(poly_in.coeff, poly_in.x*x_scale))) && ((row+2*TOL)>(-1*amplitude*poly(poly_in.coeff, poly_in.x*x_scale))));
@@ -169,50 +190,54 @@ int main( int argc, char** argv )
 
 
 
-        //cout << "The value of your polynomial at " + to_string(f_1.x) + " is: " + to_string(poly(f_1.coeff, f_1.x)) << endl;
-        Mat img,imgOutput;	// image object(s)
-    //if(((img = imread( argv[1], 0)).empty()))
-    //{
-    	Mat plot(cv::Size(COLS, ROWS), CV_8UC1);
-    	plot = 255;
-        auto lagrange_poly = [](vector<Point2d> &datapoints, double x){
-            double ret = 0;
-            for(int k=0; k<datapoints.size(); k++){
-                double L_k=datapoints[k].y;
-                for(int i=0; i<datapoints.size(); i++){
-                    if(i!=k){ L_k *= (x-datapoints[i].x)/(datapoints[k].x - datapoints[i].x); } //if statement to avoid divide by zero
-                }
-                ret += L_k;
-            }
-            return static_cast<double>(ret);
-        };
-        /*
-        auto data = create_random_datapoints();
-        for(int i=0; i<data.size(); i++){
-            cout << "(point " + to_string(i) + ") x: " + to_string(data[i].x) + " y:" + to_string(data[i].y) << endl;
-        }
-        double lx = 0;
-        cout << "Please enter the value of x where you want the value of the Lagrange Interpolating Polynomial formed with these points: ";
-        cin >> lx;
-        cout << "The value of the Lagrange Polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
-        */
-        auto f_2 = create_periodic();
+        if((selection == 1) || (selection == 2)){
+            Mat img,imgOutput;
+            Mat plot(cv::Size(COLS, ROWS), CV_8UC1);
+            plot = 255;
 
-    	for(int i=0;i<plot.cols;i++)
-        {
-            for (int j=plot.rows;j>=0;j--)
-            {
-	    	//cout << (is_sin(i,j,1,1,0));
-                if((i==255) || (j==255) ){plot.at<uchar>(j,i) = 0;} //white
-                if(f_2.type == 1)if(is_sin(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
-                if(f_2.type == 2)if(is_cos(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
-                if(f_2.type == 3)if(is_tan(j-255,i,f_2)){plot.at<uchar>(j,-i) = 0;} //white
-                //if(is_poly(j-255,i-255,10,0.1,f_1)){plot.at<uchar>(j,i) = 0;};
-            }
+                //cout << (is_sin(i,j,1,1,0));
+                    if(selection == 1){
+                        auto f_2 = create_periodic();
+                        for(int i=0;i<plot.cols;i++){
+                            for (int j=plot.rows;j>=0;j--){
+                                //cout << "selection 1!" << endl;
+                                if((i==255) || (j==255) ){plot.at<uchar>(j,i) = 0;} //white
+                                if(f_2.type == 1)if(is_sin(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
+                                if(f_2.type == 2)if(is_cos(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
+                                if(f_2.type == 3)if(is_tan(j-255,i,f_2)){plot.at<uchar>(j,-i) = 0;} //white
+                            }
+                        }
+                    }
+                    if( selection == 2){
+                        auto f_1 = create_poly();
+                        for(int i=0;i<plot.cols;i++){
+                            for (int j=plot.rows;j>=0;j--){
+                                //cout << "selection 2!" << endl;
+                                if((i==255) || (j==255) ){plot.at<uchar>(j,i) = 0;} //white
+                                if(is_poly(j-255,i-255,10,0.1,f_1)){plot.at<uchar>(j,i) = 0;};
+                            }
+                        }
+                        imshow("Input Image", plot);
+                        waitKey();
+                    }
+                    imshow("Input Image", plot);
+                    waitKey();
+                }
+        if( selection == 3){ auto data = create_datapoints();
+            double lx = 0;
+            cout << "Please enter the value of x where you want the value of the Polynomial formed with these points: ";
+            cin >> lx;
+            cout << "The value of the Lagrange Polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
         }
-        imshow("Input Image", plot);
-        waitKey();
-        return 0;
-    //}
-     //return -1;
+        if( selection == 4){ auto data = create_random_datapoints();
+            for(int i=0; i<data.size(); i++){
+                cout << "(point " + to_string(i) + ") x: " + to_string(data[i].x) + " y:" + to_string(data[i].y) << endl;
+            }
+            double lx = 0;
+            cout << "Please enter the value of x where you want the value of the Polynomial formed with these points: ";
+            cin >> lx;
+            cout << "The value of the Lagrange Polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
+        }
+
+    return 0;
 }
