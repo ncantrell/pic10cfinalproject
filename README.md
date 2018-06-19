@@ -1,7 +1,7 @@
-# Final Project pic10c Spring 2018  
+# Final Project PIC10C Spring 2018  
 Graphing calculator and polynomial interpolation
 
-This project demonstrates the application of some of the topics learned in my PIC10C and MATH 151A classes during Spring Quarter '18.
+(This project demonstrates the application of some of the topics learned in my PIC10C and MATH 151A classes during Spring Quarter of 2018.)
 
 ----
 
@@ -31,14 +31,16 @@ After deciding to switch to OpenCV, I ended up spending something like 6 hours t
 
 "sudo apt-get install libopencv-dev" wasn't getting working compiled binaries for Code::Blocks, so I ended up trying to compile OpenCV 3.0 and 2.4.11 from source. Inevitably, I had weird problems with Cmake and eventually just gave up and used one of my older laptops that already had OpenCV Installed.
 
-This had the side effect of making it difficult to work on the project because the laptop power connector and battery were both in bad shape so if the laptop moved: it often resulted in a cold shutdown from loss of power. Eventually these repetitive cold shutdowns resulted in my Linux/Chrubuntu Display manager getting dorked resulting in a login-loop that prevented me from working on the program during my flight to Tokyo.
+This had the side effect of making it difficult to work on the project because the laptop power connector and battery were both in bad shape so if the laptop moved: it often resulted in a cold shutdown from loss of power. 
+
+Eventually these repetitive cold shutdowns resulted in my Linux/Chrubuntu Display manager getting dorked resulting in a login-loop that prevented me from working on the program during my flight to Tokyo.
 
 ### Solutions and Lessons Learned
-I was eventually able to recover from the Bootloop using a tip from askubuntu (source: https://askubuntu.com/a/954426) which was to run "dpkg-reconfigure lightdm" to fix the login-loop.
+I was eventually able to recover from the login-loop using a tip from askubuntu (source: https://askubuntu.com/a/954426) which was to run "dpkg-reconfigure lightdm" to fix the login-loop.
 
 The problem that was much more difficult to overcome was recovering from the lost time of that 10 hour flight. I had planned to utilize that time productively to get caught up on putting the finishing touches on this project, but had to sleep for most of the flight instead.
 
-I think one of the most frustrating lessons to take away from these problems is that my time management skills and tendency to procrastinate have not improved nearly as much as I thought they had. :/ Development environment is always frustrating to setup and deal with, but I think getting more familiar with Docker could help me here.
+I think one of the most frustrating lessons to take away from these problems is that my time management skills and tendency to procrastinate have not improved nearly as much as I thought they had. Additionally, development environment is always frustrating to setup and deal with, but I think getting more familiar with Docker might help me here.
 
 One of the aspects of working on this project that I really enjoyed was getting familiar with Lambda functions in C++.
 
