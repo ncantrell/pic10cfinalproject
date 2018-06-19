@@ -56,22 +56,28 @@ Would also like to add Neville's method and a symbolic solver that not only can 
 Another feature that I really want to integrate is C++ 11 multithreading to improve the rendering speed.
 
 ----
-### Key Features
-## Periodic Function Graphing
+## Key Features
+### Periodic Function Graphing
+#### f(x)=sin(x)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic1.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic2.png)
+#### f(x)=cos(x)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic5.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic6.png)
+#### f(x)=tan(x)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic3.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/Periodic4.png)
 
-## Polynomial Graphing
+### Polynomial Graphing
+#### f(x)=(x^3)-5x
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial1.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial2.png)
+#### f(x)=x+5
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial3.png)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial4.png)
 
-## Polynomial Interpolation (Lagrange Polynomial)
+### Polynomial Interpolation (Lagrange Polynomial)
 ![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/lagrange1.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/lagrange2.png)
 
  
