@@ -27,13 +27,12 @@ After deciding to switch to OpenCV, I ended up spending something like 6 hours t
 
 "sudo apt-get install libopencv-dev" wasn't getting working compiled binaries for Code::Blocks, so I ended up trying to compile OpenCV 3.0 and 2.4.11 from source. Inevitably, I had weird problems with Cmake and eventually just gave up and used one of my older laptops that already had OpenCV Installed.
 
-This had the side effect of making it difficult to work on the project because the laptop power connector and battery were both in bad shape so if the laptop moved: it often resulted in a cold shutdown from loss of power.
-
-2) Detail your research (e.g. include links to tutorials, and/or stackoverflow-like phorums), as well as your struggles (e.g. compilation/linking issues, etc) and the way you either solved them and/or worked around them.
+This had the side effect of making it difficult to work on the project because the laptop power connector and battery were both in bad shape so if the laptop moved: it often resulted in a cold shutdown from loss of power. Eventually these repetitive cold shutdowns resulted in my Linux/Chrubuntu Display manager getting dorked resulting in a login-loop that prevented me from working on the program during my flight to Tokyo.
 
 ## Solutions and Lessons Learned
-3) Detail the issues you came up with, and most importantly, all things you took away from the process. 
-(Remember, the main goal of this assignment is to have you showcase your learning process.)
+I was eventually able to recover from the Bootloop using a tip from askubuntu (source: https://askubuntu.com/a/954426) which was to run "dpkg-reconfigure lightdm" to fix the login-loop.
+
+The problem that was much more difficult to overcome was recovering from the lost time of that 10 hour flight. I had planned to utilize that time productively to get caught up on putting the finishing touches on this project, but had to sleep for most of the flight instead.
 
 ## Future Work
-4) let us know about possible ways to improve it.
+I would like to replace the CLI for entering equations with a GUI, and solve some of the weird aliasing problems using alternative distance metrics than the static "tolerance" I #define'ed. Would also like to add Neville's method and a symbolic solver that not only can solve for y values for a given x, but can also output the equation for the function that interpolates between those points.
