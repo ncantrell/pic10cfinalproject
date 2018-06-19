@@ -4,11 +4,11 @@ Graphing calculator and polynomial interpolation
 ----
 ### Key Features
 
-![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial1.PNG)
-![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial2.PNG)
-![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial3.PNG)
-![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial4.PNG)
-![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/lagrange1.PNG)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial1.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial2.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial3.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/polynomial4.png)
+![alt text](https://raw.githubusercontent.com/ncantrell/pic10cfinalproject/master/lagrange1.png)
 
  
 ----
