@@ -35,30 +35,39 @@ struct Periodic{
 
 int main( int argc, char** argv )
 {
+        bool valid_selection = false;
         string menu = "";
         int selection = 0;
         cout << "Nicholas Cantrell's PIC10C Final Project" << endl;
         cout << "Press any key (followed by \'enter\') to continue..." << endl;
         cin >> menu;
-        system("pause");
+        //system("pause");
         system("clear");
-        cout << "Main Menu:" << endl;
-        cout << "-------------------------------------------------------------------------------" << endl;
-        cout << "To graph a periodic function, press \'1\'" << endl;
-        cout << "To graph a polynomial function, press \'2\'" << endl;
-        cout << "To manually enter a set of points for polynomial interpolation, press \'3\'" << endl;
-        cout << "To generate a set of points for polynomial interpolation, press \'4\'" << endl;
-        cin >> selection;
+        while(!valid_selection){
+                cout << "Main Menu:" << endl;
+                cout << "-------------------------------------------------------------------------------" << endl;
+                cout << "To graph a periodic function, press \'1\'" << endl;
+                cout << "To graph a polynomial function, press \'2\'" << endl;
+                cout << "To manually enter a set of points for polynomial interpolation, press \'3\'" << endl;
+                cout << "To generate a set of points for polynomial interpolation, press \'4\'" << endl;
+                cout << "To do option \'4\', and then find the derivative of that polynomial press \'5\'" << endl;
+                cout << "To do option \'4\', and then find the integral of that polynomial press \'5\'" << endl;
+                cin >> selection;
+                if((selection == 1) || (selection == 2) || (selection == 3) || (selection == 4) || (selection == 5) || (selection == 6)){
+                    valid_selection = true;
+                }
+                else{
+                    system("clear");
+                    cout << "Please make a valid selection..." << endl;
+                }
+            }
         system("clear");
-
-
         struct Point2d{
             double x;
             double y;
             Point2d(){x=NULL; y=NULL;}
             Point2d(double x_in, double y_in){ x = x_in; y = y_in;}
         };
-
         auto lagrange_poly = [](vector<Point2d> &datapoints, double x){
             double ret = 0;
             for(int k=0; k<datapoints.size(); k++){
@@ -70,7 +79,21 @@ int main( int argc, char** argv )
             }
             return static_cast<double>(ret);
         };
-
+        auto lagrange_deriv = [&](vector<Point2d> &datapoints, double x, double h){
+            //double h = 0.001;
+            //x = x-h;
+            double ret1 = lagrange_poly(datapoints,x-h);
+            //x = x+(2*h);
+            double ret2 = lagrange_poly(datapoints,x+h);
+            return static_cast<double>((-1*(ret1-ret2)/(2*h)));
+        };
+        auto lagrange_integral = [&](vector<Point2d> &datapoints, double a, double b, double n){
+            double ret = 0;
+            double h = (b-a)/n;
+            for(int i = 1; i<=n; i++)
+            ret += h*lagrange_poly(datapoints,a+(h*n));
+            return static_cast<double>(0.5*ret);
+        };
         auto poly = [](vector<double> f, double x){
                 double ret = 0;
                 for(int i=0; i<=f.size(); i++){
@@ -91,7 +114,7 @@ int main( int argc, char** argv )
                     cin >> tmp;
                     coeff.push_back(tmp);
                     }
-                cout << "Please enter the value of x: ";
+//                cout << "Please enter the value of x: ";
                 x = 0;
                 //cin >> x;
                 return static_cast<Polynomial>(Polynomial(coeff,x));
@@ -187,56 +210,80 @@ int main( int argc, char** argv )
             //return (((row-TOL)<(amplitude*sin((col+(50)+phase)*PI/freq))) && ((row+TOL)>(amplitude*sin((col+(50)+phase)*PI/freq))));
             return (((row-TOL)<(periodic_in.amplitude*tan((col+(50)+periodic_in.phase)*PI/periodic_in.freq))) && ((row+TOL)>(periodic_in.amplitude*tan((col+(50)+periodic_in.phase)*PI/periodic_in.freq))));
             };
-
-
-
         if((selection == 1) || (selection == 2)){
             Mat img,imgOutput;
             Mat plot(cv::Size(COLS, ROWS), CV_8UC1);
             plot = 255;
-
-                //cout << (is_sin(i,j,1,1,0));
-                    if(selection == 1){
-                        auto f_2 = create_periodic();
-                        for(int i=0;i<plot.cols;i++){
-                            for (int j=plot.rows;j>=0;j--){
-                                //cout << "selection 1!" << endl;
-                                if((i==255) || (j==255) ){plot.at<uchar>(j,i) = 0;} //white
-                                if(f_2.type == 1)if(is_sin(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
-                                if(f_2.type == 2)if(is_cos(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
-                                if(f_2.type == 3)if(is_tan(j-255,i,f_2)){plot.at<uchar>(j,-i) = 0;} //white
-                            }
-                        }
+        //cout << (is_sin(i,j,1,1,0));
+            if(selection == 1){
+                auto f_2 = create_periodic();
+                for(int i=0;i<plot.cols;i++){
+                    for (int j=plot.rows;j>=0;j--){
+                        //cout << "selection 1!" << endl;
+                        if((i==255) || (j==255) ){plot.at<uchar>(j,i) = 0;} //white
+                        if(f_2.type == 1)if(is_sin(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
+                        if(f_2.type == 2)if(is_cos(j-255,i,f_2)){plot.at<uchar>(j,i) = 0;} //white
+                        if(f_2.type == 3)if(is_tan(j-255,i,f_2)){plot.at<uchar>(j,-i) = 0;} //white
                     }
-                    if( selection == 2){
-                        auto f_1 = create_poly();
-                        for(int i=0;i<plot.cols;i++){
-                            for (int j=plot.rows;j>=0;j--){
-                                //cout << "selection 2!" << endl;
-                                if((i==255) || (j==255) ){plot.at<uchar>(j,i) = 0;} //white
-                                if(is_poly(j-255,i-255,10,0.1,f_1)){plot.at<uchar>(j,i) = 0;};
-                            }
-                        }
-                        imshow("Input Image", plot);
-                        waitKey();
-                    }
-                    imshow("Input Image", plot);
-                    waitKey();
                 }
+            }
+            if( selection == 2){
+                auto f_1 = create_poly();
+                for(int i=0;i<plot.cols;i++){
+                    for (int j=plot.rows;j>=0;j--){
+                        //cout << "selection 2!" << endl;
+                        if((i==255) || (j==255) ){plot.at<uchar>(j,i) = 0;} //white
+                        if(is_poly(j-255,i-255,10,0.1,f_1)){plot.at<uchar>(j,i) = 0;};
+                    }
+                }
+                imshow("Input Image", plot);
+                waitKey();
+            }
+            imshow("Input Image", plot);
+            waitKey();
+        }
         if( selection == 3){ auto data = create_datapoints();
             double lx = 0;
-            cout << "Please enter the value of x where you want the value of the Polynomial formed with these points: ";
+            cout << "Please enter the value of x where you want the value of the polynomial formed with these points: ";
             cin >> lx;
-            cout << "The value of the Lagrange Polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
+            cout << "The value of the lagrange polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
         }
         if( selection == 4){ auto data = create_random_datapoints();
             for(int i=0; i<data.size(); i++){
                 cout << "(point " + to_string(i) + ") x: " + to_string(data[i].x) + " y:" + to_string(data[i].y) << endl;
             }
             double lx = 0;
-            cout << "Please enter the value of x where you want the value of the Polynomial formed with these points: ";
+            cout << "Please enter the value of x where you want the value of the polynomial formed with these points: ";
             cin >> lx;
-            cout << "The value of the Lagrange Polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
+            cout << "The value of the lagrange polynomial formed with these points at " + to_string(lx) + " is: " + to_string(lagrange_poly(data,lx)) << endl;
+        }
+        if( selection == 5){ auto data = create_random_datapoints();
+            for(int i=0; i<data.size(); i++){
+                cout << "(point " + to_string(i) + ") x: " + to_string(data[i].x) + " y:" + to_string(data[i].y) << endl;
+            }
+            double lx = 0;
+            double lh = 0;
+            cout << "Please enter the value of x where you want the derivative of the polynomial: ";
+            cin >> lx;
+            cout << "Please enter the value of h: ";
+            cin >> lh;
+            cout << "At " + to_string(lx) + " the value of the derivative of the polynomial formed with these points is: " + to_string(lagrange_deriv(data,lx,lh)) << endl;
+        }
+        if( selection == 6){ auto data = create_random_datapoints();
+            for(int i=0; i<data.size(); i++){
+                cout << "(point " + to_string(i) + ") x: " + to_string(data[i].x) + " y:" + to_string(data[i].y) << endl;
+            }
+            double num_p = 0;
+            double a = 0;
+            double b = 0;
+            auto f_1 = create_poly();
+            cout << "Please enter the beginning of the interval of integration: ";
+            cin >> a;
+            cout << "Please enter the end of the interval of integration: ";
+            cin >> b;
+            cout << "Please enter the number of points: ";
+            cin >> num_p;
+            cout << "The value of the def. integral formed with these points from " + to_string(a) + " to " + to_string(b) + "  is: " + to_string(lagrange_integral(data,a,b,num_p)) << endl;
         }
 
     return 0;
